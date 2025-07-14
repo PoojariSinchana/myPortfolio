@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Animated Text</title>
+  <style>
+    body {
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      color: #fff;
+      scroll-behavior: smooth;
+    }
+    .hero {
+      position: relative;
+      background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 1;
+    }
+
+    .hero > * {
+      position: relative;
+      z-index: 2;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      background-color: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #111;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+
+    .nav-links li a {
+      text-decoration: none;
+      color: #111;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links li a:hover {
+      color: #0077ff;
+    }
+
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    h1 span {
+      color: #00ffe1;
+    }
+
+    .typing-container {
+      font-size: 28px;
+      background-color: rgba(0, 0, 0, 0.4);
+      padding: 16px 24px;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.6);
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 3px solid #ffffff;
+      max-width: 100%;
+      animation: typing 6s steps(70, end) forwards, blink-caret 0.75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent; }
+      50% { border-color: #ffffff; }
+    }
+
+    .section {
+      padding: 60px 20px;
+      background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+      color: #111;
+    }
+
+    .about-img {
+      flex: 1;
+      max-width: 300px;
+    }
+
+    .about-img img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .about-content {
+      flex: 2;
+      max-width: 600px;
+    }
+
+    .about-content h2 {
+      font-size: 2rem;
+      margin-bottom: 16px;
+    }
+    .skill-section {
+      padding: 60px 20px;
+      background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+      color: #111;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 20px;
+      justify-items: center;
+      align-items: center;
+    }
+
+    .skill {
+      text-align: center;
+    }
+
+    .skill img {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 8px;
+    }
+
+    .skill p {
+      margin: 0;
+      font-weight: 500;
+    }
+    .carousel-wrapper {
+      position: relative;
+    }
+
+    .carousel {
+      display: flex;
+      overflow-x: auto;
+      gap: 20px;
+      scroll-snap-type: x mandatory;
+      padding: 20px 40px;
+      scroll-behavior: smooth;
+    }
+
+    .carousel::-webkit-scrollbar {
+      display: none;
+    }
+
+    .card {
+  flex: 0 0 300px;
+  scroll-snap-align: center;
+  background: #fff;
+  color: #000;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: height 0.3s ease;
+  overflow: visible; /* Important to avoid clipping expanded text */
+}
+
+
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .card a {
+      display: inline-block;
+      margin-top: 10px;
+      color: #0077ff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      font-size: 24px;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 50%;
+      z-index: 10;
+    }
+
+    .arrow.left {
+      left: 10px;
+    }
+
+    .arrow.right {
+      right: 10px;
+    }
+  .social-icons a img {
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.social-icons a:hover img {
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 6px currentColor);
+}
+.toggle-btn {
+  background: none;
+  border: none;
+  color: #0077ff;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 5px;
+  font-size: 14px;
+}
+.toggle-btn:hover {
+  text-decoration: underline;
+}
+
+
+
+</style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">Sinchan Poojari</div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="home" class="hero">
+    <h1>Hi, I'm <span>Sinchan Poojari</span></h1>
+    <p class="typing-container">Frontend Developer | React Enthusiast | Creative Coder</p>
+  </section>
+
+  <section id="about" class="section" style="display:flex;align-items:center;justify-content:center;gap:40px;">
+    <div class="about-img">
+      <img src="https://drive.google.com/uc?export=view&id=13xmtTYxWN56v5TISD2IOs4BCET4h2Soa" alt="Sinchan Poojari">
+    </div>
+    <div class="about-content">
+      <h2>About Me</h2>
+      <p>Hello, my name is Sinchana, and I am from Maravanthe, karnataka. I am currently studying Bachelor of Computer Application at Sri Bhandarkars' Art's and Science College, Kundapura. In terms of skills, I have hands-on experience with HTML, CSS, Python, JavaScript, and SQL. My strengths are in Python and SQL, and I have developed a variety of websites, both static and dynamic. One project I particularly enjoyed was creating a website for to-do lists, helping users keep track of their tasks. A significant achievement of mine is completing a 30-days code challenge, where I practiced coding consistently every day. I am passionate about technology, and with my skills and dedication, I am confident I can contribute effectively in a customer care or service role. I am eager to continuously learn and grow in this position.</p>
+      <a href="https://drive.google.com/file/d/1kNcp4D-XWo3IZtJnJxFbB3bPJbABBKtV/view?usp=sharing" target="_blank" download style="display:inline-block;margin-top:15px;padding:10px 20px;background:#0077ff;color:#fff;border-radius:5px;text-decoration:none;font-weight:bold;">📄 View / Download Resume</a>
+    </div>
+  </section>
+  <section class="section" id="skills">
+    <h2 style="text-align:center;">Technical Skills</h2>
+    <div class="skills-grid">
+      <div class="skill"><img src="https://img.icons8.com/color/48/html-5.png" alt="HTML"/><p>HTML</p></div>
+      <div class="skill"><img src="https://img.icons8.com/color/48/css3.png" alt="CSS"/><p>CSS</p></div>
+      <div class="skill"><img src="https://img.icons8.com/color/48/javascript.png" alt="JavaScript"/><p>JavaScript</p></div>
+      <div class="skill"><img src="https://img.icons8.com/color/48/python.png" alt="Python"/><p>Python</p></div>
+      <div class="skill"><img src="https://img.icons8.com/ios-filled/50/000000/sql.png" alt="SQL"/><p>SQL</p></div>
+      <div class="skill"><img src="https://img.icons8.com/color/48/react-native.png" alt="ReactJS"/><p>ReactJS</p></div>
+      <div class="skill"><img src="https://img.icons8.com/color/48/nodejs.png" alt="NodeJS"/><p>NodeJS</p></div>
+      <div class="skill"><img src="https://img.icons8.com/color/48/java-coffee-cup-logo.png" alt="Java"/><p>Java</p></div>
+      <div class="skill"><img src="https://img.icons8.com/color/48/c-plus-plus-logo.png" alt="C++"/><p>C++</p></div>
+      <div class="skill"><img src="https://img.icons8.com/color/48/bootstrap.png" alt="Bootstrap"/><p>Bootstrap</p></div>
+    </div>
+  </section>
+  <section id="projects" class="section">
+    <h2 style="text-align:center;">Projects</h2>
+    <div class="carousel-wrapper">
+      <button class="arrow left" onclick="scrollCarousel(-1)">&#8592;</button>
+      <div class="carousel" id="carousel">
+        <div class="card">
+  <img src="https://via.placeholder.com/300x150?text=Jobby+App" alt="Jobby App">
+  <h3>Wikipedia Search Application</h3>
+  <p>
+    A custom Wikipedia search application...
+    <span class="more-text" style="display: none;">
+      that provides a simplified and intuitive way for users to access and view relevant information. With the ability to easily search for and view curated results, users can dive deeper into their interests with just a click.
+      ● Streamlined search results with HTML list elements, styled for a modern and user-friendly interface using CSS, Bootstrap and responsive design.
+      ● Effortlessly access information with asynchronous fetch GET HTTP API calls and the option to open the desired result in a new tab for further exploration.
+    </span>
+    <button class="toggle-btn" onclick="toggleText(this)">See More</button>
+  </p>
+  <a href="https://keyword.ccbp.tech/">View Project</a>
+</div>
+
+        <div class="card">
+  <img src="https://via.placeholder.com/300x150?text=Crypto+Tracker" alt="Crypto Tracker">
+  <h3>Todos Application</h3>
+  <p>
+    Developed persistent todo application with CRUD operations to track list of tasks.
+    <span class="more-text" style="display: none;">
+      <br>● Displayed list of todos with HTML list elements, styled todo list using CSS, Bootstrap.
+      <br>● Implemented todo CRUD operations by using JavaScript event listeners and updated UI dynamically using DOM methods.
+      <br>● Used Arrays, Objects and their methods during CRUD, persisted state with local storage.
+    </span>
+    <button class="toggle-btn" onclick="toggleText(this)">See More</button>
+  </p>
+  <a href="https://todospplication.ccbp.tech">View Project</a>
+</div>
+
+<div class="card">
+  <img src="https://via.placeholder.com/300x150?text=Mini+Dashboard" alt="Mini Dashboard">
+  <h3>Registration Form</h3>
+  <p>
+    SinRF Portfolio is a modern and responsive personal portfolio web app built using React.js.
+    <span class="more-text" style="display: none;">
+      <br>● Acts as a digital resume showcasing skills, projects, and contact info.
+      <br>● Smooth scrolling, reusable components, and seamless responsive design.
+    </span>
+    <button class="toggle-btn" onclick="toggleText(this)">See More</button>
+  </p>
+  <a href="https://sinrf.ccbp.tech">View Project</a>
+</div>
+
+<div class="card">
+  <img src="https://via.placeholder.com/300x150?text=Mini+Dashboard" alt="Mini Dashboard">
+  <h3>IPL Dashboard App</h3>
+  <p>
+    IPL Dashboard app using React to show team-wise match statistics and latest scores.
+    <span class="more-text" style="display: none;">
+      <br>● Fetched data from IPL API, displayed match cards with routing.
+      <br>● Responsive UI and reusable components for efficient structure.
+    </span>
+    <button class="toggle-btn" onclick="toggleText(this)">See More</button>
+  </p>
+  <a href="https://sinipl.ccbp.tech">View Project</a>
+</div>
+
+<div class="card">
+  <img src="https://via.placeholder.com/300x150?text=Mini+Dashboard" alt="Mini Dashboard">
+  <h3>Match Game</h3>
+  <p>
+    SinMG - Matching Game is a fast-paced React.js game for image matching fun.
+    <span class="more-text" style="display: none;">
+      <br>● Uses category filters (Fruits, Animals, Places).
+      <br>● Built with React state and timer logic, dynamic rendering.
+    </span>
+    <button class="toggle-btn" onclick="toggleText(this)">See More</button>
+  </p>
+  <a href="https://sinmg.ccbp.tech">View Project</a>
+</div>
+
+<div class="card">
+  <img src="https://via.placeholder.com/300x150?text=Mini+Dashboard" alt="Mini Dashboard">
+  <h3>Rock Paper Scissors Game</h3>
+  <p>
+    RPS Game (Rock Paper Scissors) lets users play against computer with score tracking.
+    <span class="more-text" style="display: none;">
+      <br>● Built using React Hooks and useState/useEffect.
+      <br>● Visual animations and responsive experience.
+    </span>
+    <button class="toggle-btn" onclick="toggleText(this)">See More</button>
+  </p>
+  <a href="https://sinrps.ccbp.tech">View Project</a>
+</div>
+
+      </div>
+      <button class="arrow right" onclick="scrollCarousel(1)">&#8594;</button>
+    </div>
+  </section>
+
+  <section id="contact" class="section" style="text-align: center;">
+    <h2>Contact Me</h2>
+    <div class="social-icons" style="font-size: 24px; margin-top: 20px; display: flex; justify-content: center; gap: 30px;">
+  <a href="mailto:sinchanpoojari@gmail.com" target="_blank">
+    <img src="https://img.icons8.com/color/48/gmail-new.png" alt="Email" width="32" />
+  </a>
+  <a href="https://x.com/PoojariSinchana" target="_blank">
+    <img src="https://img.icons8.com/ios-filled/50/000000/twitterx.png" alt="X" width="32" />
+  </a>
+  <a href="https://www.instagram.com/sinchana__poojari" target="_blank">
+    <img src="https://img.icons8.com/color/48/instagram-new.png" alt="Instagram" width="32" />
+  </a>
+  <a href="https://www.linkedin.com/in/sinchana-poojari" target="_blank">
+    <img src="https://img.icons8.com/color/48/linkedin.png" alt="LinkedIn" width="32" />
+  </a>
+  <a href="https://wa.me/8296552210" target="_blank">
+    <img src="https://img.icons8.com/color/48/whatsapp.png" alt="WhatsApp" width="32" />
+  </a>
+</div>
+
+  
+  </section>
+
+  <script>
+    function scrollCarousel(direction) {
+      const carousel = document.getElementById('carousel');
+      const scrollAmount = 320;
+      carousel.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+    }
+  </script>
+  <script>
+  function toggleText(btn) {
+    const moreText = btn.previousElementSibling;
+    const isHidden = moreText.style.display === "none";
+
+    moreText.style.display = isHidden ? "inline" : "none";
+    btn.textContent = isHidden ? "See Less" : "See More";
+  }
+</script>
+
+</body>
+<footer style="background-color: #111; color: #fff; text-align: center; padding: 20px; margin-top: 40px;">
+  <p>&copy; 2025 Sinchan Poojari. All rights reserved.</p>
+</footer>
+</html>
